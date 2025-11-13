@@ -14,7 +14,21 @@ using namespace vex;
 vex::brain       Brain;
 
 // define your global instances of motors and other devices here
+vex::motor leftMotor1 = vex::motor(vex::PORT1, vex::ratio18_1, false);
+vex::motor leftMotor2 = vex::motor(vex::PORT2, vex::ratio18_1, false);
+vex::motor leftMotor3 = vex::motor(vex::PORT3, vex::ratio18_1, false);
+vex::motor rightMotor1 = vex::motor(vex::PORT10, vex::ratio18_1, true);
+vex::motor rightMotor2 = vex::motor(vex::PORT11, vex::ratio18_1, true);
+vex::motor rightMotor3 = vex::motor(vex::PORT12, vex::ratio18_1, true);
+vex::motor intakeMotor = vex::motor(vex::PORT4, vex::ratio6_1, false);
+vex::motor intakeMotor2 = vex::motor(vex::PORT5, vex::ratio6_1, false);
+vex::controller Controller = vex::controller(vex::primary);
 
+// Pneumatics definitions
+vex::pneumatics piston = vex::pneumatics(Brain.ThreeWirePort.A);
+vex::pneumatics piston2 = vex::pneumatics(Brain.ThreeWirePort.B);
+vex::pneumatics clampPiston = vex::pneumatics(Brain.ThreeWirePort.C);
+vex::pneumatics wingPiston = vex::pneumatics(Brain.ThreeWirePort.D);
 
 int main() {
 
