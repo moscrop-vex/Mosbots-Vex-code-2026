@@ -6,7 +6,9 @@
 /*    Description:  V5 project                                                */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
+
 #include "vex.h"
+
 
 using namespace vex;
 
@@ -14,6 +16,7 @@ using namespace vex;
 vex::brain       Brain;
 
 // define your global instances of motors and other devices here
+
 vex::motor leftMotor1 = vex::motor(vex::PORT1, vex::ratio18_1, false);
 vex::motor leftMotor2 = vex::motor(vex::PORT2, vex::ratio18_1, false);
 vex::motor leftMotor3 = vex::motor(vex::PORT3, vex::ratio18_1, false);
@@ -35,6 +38,8 @@ vex::pneumatics piston2 = vex::pneumatics(Brain.ThreeWirePort.B);
 vex::pneumatics clampPiston = vex::pneumatics(Brain.ThreeWirePort.C);
 vex::pneumatics wingPiston = vex::pneumatics(Brain.ThreeWirePort.D);
 
+vex::controller Controller = vex::controller(vex::primary);
+
 int axis1;
 int axis2;
 int axis3;
@@ -43,7 +48,7 @@ int axis4;
 int main() {
 
     Brain.Screen.printAt( 10, 50, "im gabriel" );
-   
+    
 
 
     while(1) {
@@ -52,13 +57,21 @@ int main() {
         axis3 = Controller.Axis3.position();
         axis4 = Controller.Axis4.position();
         
-        leftMotors.setVelocity(axis3+axis4, rpm);
-        rightMotors.setVelocity(axis3+axis4, rpm);
-        
-        allFloorMotors.spin(forward);
+        //math for speed
+        int leftSpeed = (axis3+axis1)/2;
+        int rightSpeed = (axis3-axis1)/2;
 
-        
+        //debug info
+        Brain.Screen.clearScreen();
+        Brain.Screen.setCursor(1,1);
+        Brain.Screen.print(leftSpeed);
+        Brain.Screen.setCursor(2,1);
+        Brain.Screen.print(rightSpeed);
 
+        //make motors move
+        leftMotors.setVelocity(leftSpeed, rpm);
+        rightMotors.setVelocity(rightSpeed, rpm);
+        allFloorMotors.spin(vex::forward);
         
         // Allow other tasks to run
         this_thread::sleep_for(10);
